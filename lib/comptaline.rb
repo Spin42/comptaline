@@ -2,9 +2,13 @@ require "rest-client"
 require "uri"
 require "csv"
 
-require "comptaline/exporter"
-require "comptaline/utils"
-require "comptaline/accounting_entry/base"
+require_relative "comptaline/exporter"
+require_relative "comptaline/utils"
+require_relative "comptaline/accounting_entry/base"
+require_relative "comptaline/accounting_entry/general_operation"
+require_relative "comptaline/accounting_entry/customer"
+require_relative "comptaline/accounting_entry/invoice"
+require_relative "comptaline/accounting_entry/clearance"
 
 module Comptaline
   class Configuration

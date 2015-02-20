@@ -1,10 +1,10 @@
 module Comptaline
   module AccountingEntry
-    class Invoice < AccountingEntry::Base
+    class Invoice < Base
       attr_accessor :customer_id, :is_credit_note, :date, :due_date, :invoice_number, :communication, :structured_communication, :inputation_account,
         :vat_code, :amount, :amount_with_vat, :vat_amount, :currency_code, :match_id
 
-      def initialize(type)
+      def initialize(type = {})
         @is_credit_note = type[:is_credit_note] = false
       end
 
@@ -41,11 +41,11 @@ module Comptaline
       end
 
       def invoice_journal
-        ComptalineClient.configuration.journals.invoices
+        Comptaline.configuration.journals.invoices
       end
 
       def credit_note_journal
-        ComptalineClient.configuration.journals.credit_notes
+        Comptaline.configuration.journals.credit_notes
       end
 
       def credit_note_flag

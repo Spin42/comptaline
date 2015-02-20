@@ -1,4 +1,4 @@
-module ComptalineClient
+module Comptaline
   class Client
     attr_accessor :host_url, :username, :password
 

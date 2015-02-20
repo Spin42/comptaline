@@ -1,6 +1,6 @@
-module ComptalineClient
+module Comptaline
   module AccountingEntry
-    class Customer < AccountingEntry::Base
+    class Customer < Base
       attr_accessor :id, :language_code, :first_name, :last_name, :street, :zipcode, :city, :country_code, :phone_number, :vat_number, :iban, :bic, :email,
         :fax_number, :category, :civility, :company_name, :company_civility
 
@@ -24,14 +24,14 @@ module ComptalineClient
           @vat_number,                             
           @iban,                                   
           @bic,                                    
-          @email,                                  
+          @email                            
         ]
       end
 
       private
 
       def name 
-        "#{@last_name} #{@firstname]}"
+        "#{@last_name} #{@first_name}"
       end
 
       def action 

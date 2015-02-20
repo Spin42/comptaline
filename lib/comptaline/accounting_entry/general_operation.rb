@@ -1,6 +1,6 @@
-module ComptalineClient
+module Comptaline
   module AccountingEntry
-    class GeneralOperation < AccountingEntry::Base
+    class GeneralOperation < Base
       attr_accessor :action, :operation_type, :payment_id, :amount, :date, :communication, :currency_code, 
         :accounting_journal, :match_id, :accounting_writing_number, :index
 
