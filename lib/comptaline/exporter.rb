@@ -4,8 +4,12 @@ module Comptaline
       @entries_buffer = []
     end
 
-    def append(entries)
+    def concat(entries)
       @entries_buffer.concat(entries)
+    end
+
+    def push(entry)
+      @entries_buffer.push(entries)
     end
 
     def flush!
