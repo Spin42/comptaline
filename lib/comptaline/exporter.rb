@@ -9,14 +9,11 @@ module Comptaline
     end
 
     def flush!
-      content = CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1") do |csv|
-        @entries_buffer.each do |line|
-          csv << encode(line)
+      CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1") do |csv|
+        @entries_buffer.each do |entry|
+          csv << encode(entry.to_a)
         end
       end
-
-      { content: content, name: name }
-      # Should call client with the result
     end
 
     def add_customer(customer)
@@ -28,10 +25,6 @@ module Comptaline
     end
 
     private
-
-    def name
-      "COMPTALINE_#{Time.now.strftime("%Y-%m-%d")}.csv"
-    end
 
     def initialize_csv(file)
       CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1")

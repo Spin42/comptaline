@@ -43,7 +43,8 @@ module Comptaline
       end
 
       def formatted_zipcode
-         "#{@country_code}-#{@zipcode}"
+        return nil if @zipcode.nil?
+        "#{@country_code}-#{@zipcode}"
       end
 
       def formatted_company_name

@@ -5,7 +5,7 @@ module Comptaline
         :vat_code, :amount, :amount_with_vat, :vat_amount, :currency_code, :match_id
 
       def initialize(type = {})
-        @is_credit_note = type[:is_credit_note] = false
+        @is_credit_note = type[:is_credit_note] == true
       end
 
       def to_a
@@ -37,15 +37,11 @@ module Comptaline
       end
 
       def journal
-        @is_credit_note ? invoice_journal : credit_note_journal
-      end
-
-      def invoice_journal
-        Comptaline.configuration.journals.invoices
-      end
-
-      def credit_note_journal
-        Comptaline.configuration.journals.credit_notes
+        if @is_credit_note
+          Comptaline.configuration.credit_note_journal
+        else
+          Comptaline.configuration.invoice_journal
+        end
       end
 
       def credit_note_flag
@@ -53,9 +49,8 @@ module Comptaline
       end
 
       def period
-        @created_at.strftime("%m")
+        @date.strftime("%m")
       end
-
     end
   end
 end

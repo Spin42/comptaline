@@ -12,7 +12,7 @@ require_relative "comptaline/accounting_entry/clearance"
 
 module Comptaline
   class Configuration
-    attr_accessor :host_url, :username, :password
+    attr_accessor :host_url, :username, :password, :invoice_journal, :credit_note_journal
   end
 
   @configuration = Configuration.new

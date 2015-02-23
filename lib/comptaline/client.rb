@@ -14,10 +14,10 @@ module Comptaline
 
     private
 
-    def authenticated_request(method, url, params = {}, payload = {})
+    def authenticated_request(method, path, params = {}, payload = {})
       open_session
       params.merge!(sessionid: @session_id)
-      result = request(method, url, params, payload)
+      result = request(method, path, params, payload)
       close_session
       result
     end
@@ -31,15 +31,15 @@ module Comptaline
       request(:get, "SESSION", choice: 2, sessionid: @session_id)
     end
 
-    def request(method, url, params = {}, payload = {})
-      uri       = URI("#{@host_url}#{url}")
+    def request(method, path, params = {}, payload = {})
+      uri       = URI.join(@host_url, path)
       uri.query = URI.encode_www_form(params)
 
       RestClient.__send__(method, uri.to_s, payload) do |body, request, response|
         throw "Error while retreiving data #{body.inspect}" unless response.code == "200"
         result = clean_body(body)
         if result[:status] != "0"
-          throw "Something went wrong: #{url}, #{params}, #{resut}"
+          throw "Something went wrong: #{path}, #{params}, #{resut}"
         else
           result
         end
