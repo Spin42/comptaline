@@ -22,7 +22,7 @@ Or install it yourself as:
 
 Add this in an initializer: 
 
-```
+```ruby
 Comptaline.configure do | configuration |
   configuration.host_url            = "https://www.comptamanager.be/app/"
   configuration.username            = "<user>"
@@ -34,7 +34,7 @@ end
 
 Then create accounting entries and append them to the exporter instance:
 
-```
+```ruby
 exporter = Comptaline::Exporter.new
 
 customer               = Comptaline::AccountingEntry::Customer.new
