@@ -9,7 +9,7 @@ module Comptaline
     end
 
     def send(csv)
-      authenticated_request(:post, "OPERATIONS", { choice: "CSV" }, { fileName: csv })
+      authenticated_request(:post, "OPERATIONS", { choice: "CSV" }, { fileName: csv, multipart: true })
     end
 
     private
