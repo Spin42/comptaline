@@ -2,6 +2,7 @@ require "rest-client"
 require "uri"
 require "csv"
 
+require_relative "comptaline/client"
 require_relative "comptaline/exporter"
 require_relative "comptaline/utils"
 require_relative "comptaline/accounting_entry/base"

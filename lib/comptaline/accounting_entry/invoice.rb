@@ -69,7 +69,7 @@ module Comptaline
           :belgian_customer
         elsif @customer.vat_number
           :european_business_customer
-        elsif vat_codes_for_european_individual_customers[@customer.country_code]
+        elsif vat_codes_for_european_countries[@customer.country_code]
           :european_individual_customer
         else
           :non_european_customer
@@ -78,25 +78,25 @@ module Comptaline
 
       def account_assignments
         {
-          invoicer_not_subject_to_vat:   "702100",
-          belgian_customer:              "702100",
-          european_business_customer:    "700001",
-          european_individual_customer:  "700003",
-          non_european_customer:         "700002"
+          invoicer_not_subject_to_vat:  "702100",
+          belgian_customer:             "702100",
+          european_business_customer:   "700001",
+          european_individual_customer: "700003",
+          non_european_customer:        "700002"
         }
       end
 
       def vat_codes
         {
-          invoicer_not_subject_to_vat:   "211100",
-          belgian_customer:              "211400",
-          european_business_customer:    "222000",
-          european_individual_customer:  vat_codes_for_european_individual_customers[@customer.country_code],
-          non_european_customer:         "232000"
+          invoicer_not_subject_to_vat:  "211100",
+          belgian_customer:             "211400",
+          european_business_customer:   "222000",
+          european_individual_customer: vat_codes_for_european_countries[@customer.country_code],
+          non_european_customer:        "232000"
         }
       end
 
-      def vat_codes_for_european_individual_customers
+      def vat_codes_for_european_countries
         {
           "AT" => "224100",
           "BG" => "225500",

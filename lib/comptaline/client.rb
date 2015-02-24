@@ -24,7 +24,7 @@ module Comptaline
 
     def open_session
       result      = request(:get, "SESSION", choice: 1, username: @username, password: @password)
-      @session_id = result[:sessionid]
+      @session_id = result["sessionid"]
     end
 
     def close_session
@@ -37,18 +37,13 @@ module Comptaline
 
       RestClient.__send__(method, uri.to_s, payload) do |body, request, response|
         throw "Error while retreiving data #{body.inspect}" unless response.code == "200"
-        result = clean_body(body)
-        if result[:status] != "0"
-          throw "Something went wrong: #{path}, #{params}, #{resut}"
+        result = Hash.from_xml(body)["response"]
+        if result["status"] != "0"
+          throw "Something went wrong: #{path}, #{params}, #{result}"
         else
           result
         end
       end
-    end
-
-    def clean_body(body)
-      parsed = Nori.parse(body)
-      parsed[:response]
     end
   end
 end

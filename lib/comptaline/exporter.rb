@@ -12,12 +12,15 @@ module Comptaline
       @entries_buffer.push(entries)
     end
 
-    def flush!
-      CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1") do |csv|
+    def flush!(options = {})
+      csv = CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1") do |csv|
         @entries_buffer.each do |entry|
           csv << encode(entry.to_a)
         end
       end
+      puts csv.encoding
+      Comptaline.client.send(csv) if options[:debug] != true
+      csv
     end
 
     def add_customer(customer)
@@ -29,10 +32,6 @@ module Comptaline
     end
 
     private
-
-    def initialize_csv(file)
-      CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1")
-    end
 
     def add_line(object)
       buffer.push(object.to_a)
