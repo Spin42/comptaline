@@ -5,7 +5,7 @@ module Comptaline
         [
           action,                                    
           operation_type,                                      
-          @payment_id,                                   
+          @reference,                                   
           @amount,                
           format_date(@date),
           @communication,                                  
