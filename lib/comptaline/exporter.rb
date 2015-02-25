@@ -9,7 +9,7 @@ module Comptaline
     end
 
     def push(entry)
-      @entries_buffer.push(entries)
+      @entries_buffer.push(entry)
     end
 
     def flush!(options = {})
