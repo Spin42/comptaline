@@ -21,7 +21,7 @@ module Comptaline
           @country_code,                           
           @phone_number,         
           @fax_number,                             
-          @vat_number,                             
+          formatted_vat_number,                             
           @iban,                                   
           @bic,                                    
           @email                            
@@ -49,6 +49,11 @@ module Comptaline
 
       def formatted_company_name
         @company_name || name
+      end
+
+      def formatted_vat_number
+        return nil unless @vat_number
+        @vat_number.gsub(/\D/, "")
       end
     end
   end

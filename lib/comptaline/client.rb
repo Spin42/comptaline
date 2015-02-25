@@ -1,3 +1,5 @@
+require "securerandom"
+
 module Comptaline
   class Client
     attr_accessor :host_url, :username, :password
@@ -9,10 +11,22 @@ module Comptaline
     end
 
     def send(csv)
-      authenticated_request(:post, "OPERATIONS", { choice: "CSV" }, { fileName: csv, multipart: true })
+      file = make_file_for_multipart(csv)
+      begin
+        authenticated_request(:post, "OPERATIONS", { choice: "CSV" }, { fileName: file})
+      ensure
+        File.unlink(file.path)
+      end
     end
 
     private
+
+    def make_file_for_multipart(csv) 
+      dir  = Comptaline.configuration.tmp_dir
+      path = File.join(dir, "comptaline_#{SecureRandom.hex}.csv")
+      File.open(path, "w:ISO-8859-1") { |file| file.write(csv) }
+      File.new(path, :mode => "rb")
+    end
 
     def authenticated_request(method, path, params = {}, payload = {})
       open_session

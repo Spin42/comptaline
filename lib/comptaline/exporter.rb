@@ -18,7 +18,6 @@ module Comptaline
           csv << encode(entry.to_a)
         end
       end
-      puts csv.encoding
       Comptaline.client.send(csv) if options[:debug] != true
       csv
     end
@@ -40,7 +39,7 @@ module Comptaline
     def encode(values)
       values.map do |value|
         if value.respond_to?(:encode)
-          value.encode("iso-8859-1")
+          value.encode("iso-8859-1").gsub(/["']/, " ")
         else
           value
         end
