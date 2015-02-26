@@ -13,12 +13,14 @@ module Comptaline
     end
 
     def flush!(options = {})
+      return "" unless @entries_buffer.size > 0
+
       csv = CSV.generate(col_sep: ";", row_sep: "\n", encoding: "iso-8859-1") do |csv|
         @entries_buffer.each do |entry|
           csv << encode(entry.to_a)
         end
       end
-      Comptaline.client.send(csv) if options[:debug] != true
+      Comptaline.client.send(csv) if options[:send] == true
       csv
     end
 
