@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["info@spin42.com"]
   spec.summary       = "Client gem for Comptaline API"
   spec.description   = "Client gem for Comptaline API"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/Spin42/comptaline"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
