@@ -31,7 +31,9 @@ module Comptaline
       private
 
       def name 
-        "#{@last_name} #{@first_name}"
+        name = @last_name
+        name = "#{name} #{@first_name}" if @first_name
+        name
       end
 
       def action 
